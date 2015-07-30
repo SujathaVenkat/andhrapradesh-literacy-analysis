@@ -1,0 +1,60 @@
+edu = read.csv("ap.csv") 
+edumat = as.matrix(edu)
+
+apTotal = edumat[2:19,7:28]
+apmat = t(apTotal)
+
+getOption("scipen")
+opt <- options("scipen" = 20)
+getOption("scipen")
+
+jpeg('aptotal.jpg')
+barplot(as.numeric(apmat[3:4,]),names.arg=rep(apmat[1,],2),main ="Total population in Andra Pradesh - Males vs. Females",xlab = "Age", ylab= "Number", col =c("red","darkblue"), legend= c("Males","Females"),beside=TRUE) 
+dev.off()
+
+jpeg('apedu.jpg')
+barplot(as.numeric(apmat[6:7,]),names.arg=rep(apmat[1,],each=2),main ="Persons attending educational institutions in AP - Males vs. Females",xlab = "Age", ylab= "Number", col =c("red","darkblue"), legend= c("Males","Females"),beside=TRUE)   
+dev.off()
+
+totalM = apmat[3,]
+totalF = apmat[4,]
+eduM = apmat[6,]
+eduF = apmat[7,]
+
+percentM = round(as.numeric(eduM) *100/as.numeric(totalM),1)
+jpeg('percenteduM.jpg')
+barplot(percentM,names.arg=apmat[1,],main ="Percentage males attending educational institutions in AP ",xlab = "Age", ylab= "Percentage", col ="lightblue", legend= c("Males")) 
+dev.off()
+
+percentF = round(as.numeric(eduF) *100/as.numeric(totalF),1)
+jpeg('percenteduF.jpg')
+barplot(percentF,names.arg=apmat[1,],main ="Percentage females attending educational institutions in AP ",xlab = "Age", ylab= "Percentage", col ="lightblue", legend= c("Females"))
+dev.off()
+
+jpeg('apschool.jpg')
+barplot(as.numeric(apmat[9:10,]),names.arg=rep(apmat[1,],each=2),main ="Persons attending schools in AP - Boys vs. Girls", xlab = "Age", ylab= "Number", col =c("red","darkblue"),legend= c("Males","Females"), beside=TRUE)  
+dev.off()
+
+jpeg('apcollege.jpg')
+barplot(as.numeric(apmat[12:13,]),names.arg=rep(apmat[1,],each=2),main ="Persons attending college - Males vs. Females", xlab = "Age", ylab= "Number", col =c("red","darkblue"),legend= c("Males","Females"), beside=TRUE) 
+dev.off()
+
+slices <- c(apmat[8,12],apmat[11,12],apmat[14,12],apmat[17,12],apmat[20,12])
+percentlabels <- round(as.numeric(slices) *100/as.numeric(apmat[5,12],1))
+pielabels<- paste(percentlabels, "%", sep="")
+cols <- c("blue","green","cyan","red", "grey30")
+jpeg('apschool-1.jpg')
+pie(as.numeric(slices), main="Andhra Literacy 15-19 years", col=cols, labels=pielabels, cex=0.8)
+legend("topright", c("School","College","Vocational","Literacy center","Other"), cex=0.8, fill=cols)
+dev.off()
+
+slices <- c(apmat[8,13],apmat[11,13],apmat[14,13],apmat[17,13],apmat[20,13])
+percentlabels <- round(as.numeric(slices) *100/as.numeric(apmat[5,13],1))
+pielabels<- paste(percentlabels, "%", sep="")
+cols <- c("blue","green","cyan","red", "grey30")
+jpeg('apschool-2.jpg')
+pie(as.numeric(slices), main="Andhra Literacy 20-24 years", col=cols, labels=pielabels, cex=0.8)
+legend("topright", c("School","College","Vocational","Literacy center","Other"), cex=0.8, fill=cols)
+dev.off()
+
+
